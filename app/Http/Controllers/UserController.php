@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use EasyWeChat\Factory;
+use Overtrue\Socialite\SocialiteManager;
 
 class UserController extends Controller
 {
@@ -50,10 +51,18 @@ class UserController extends Controller
 
     public function login()
     {
-        $app = Factory::officialAccount($this->wechat_config);
-        $oauth = $app->oauth;
+        $config = [
+            'wechat' => [
+                'client_id'     => $this->wechat_config['app_id'],
+                'client_secret' => $this->wechat_config['secret'],
+                'redirect' => ''
+            ],
+        ];
 
-        $user = $oauth->user();
+        $socialite = (new SocialiteManager($config, app('request')))->driver('wechat');
+        $socialite->scopes(['snsapi_userinfo']);
+
+        $user = $socialite->user();
 
         file_put_contents(storage_path('app/wechat_user.json'), json_encode($user));
 
