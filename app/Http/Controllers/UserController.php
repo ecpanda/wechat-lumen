@@ -60,7 +60,7 @@ class UserController extends Controller
         ];
 
         $socialite = (new SocialiteManager($config, app('request')))->driver('wechat');
-        $socialite->scopes(['snsapi_userinfo']);
+        // $socialite->scopes(['snsapi_userinfo']);
 
         $user = $socialite->user();
 
