@@ -50,7 +50,7 @@ class UserController extends Controller
 
     public function login()
     {
-        $app = EasyWeChat\Factory::officialAccount($config);
+        $app = Factory::officialAccount($config);
         $oauth = $app->oauth;
 
         $user = $oauth->user();
