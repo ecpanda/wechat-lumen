@@ -50,7 +50,7 @@ class UserController extends Controller
 
     public function login()
     {
-        $app = Factory::officialAccount($config);
+        $app = Factory::officialAccount($this->wechat_config);
         $oauth = $app->oauth;
 
         $user = $oauth->user();
